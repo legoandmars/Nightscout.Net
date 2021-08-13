@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -18,16 +18,16 @@
 
   <ItemGroup>
     <Reference Include="UnityEngine">
-      <HintPath>..\..\BeatSaverSharper\Unity\UnityEngine.dll</HintPath>
+      <HintPath>..\Unity\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\BeatSaverSharper\Unity\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\Unity\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestModule">
-      <HintPath>..\..\BeatSaverSharper\Unity\UnityEngine.UnityWebRequestModule.dll</HintPath>
+      <HintPath>..\Unity\UnityEngine.UnityWebRequestModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestWWWModule">
-      <HintPath>..\..\BeatSaverSharper\Unity\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+      <HintPath>..\Unity\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
     </Reference>
   </ItemGroup>
 
