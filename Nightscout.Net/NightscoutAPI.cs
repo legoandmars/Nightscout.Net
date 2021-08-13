@@ -50,7 +50,7 @@ namespace Nightscout.Net
             }
             else throw new Exception("NOT FOUND!");
 
-            //todo smooth pagination
+            //todo smooth pagination and caching
         }
 
         public async Task<NightscoutEntry?> FetchLatestEntry()
