@@ -34,7 +34,7 @@ namespace Nightscout.Net
                 // this is horrible please do something else I beg you
                 var timer = new Timer(async (e) =>
                 {
-                    await FetchEntries();
+                    await FetchEntries().ConfigureAwait(false);
                 }, null, 1000, 60000);
             }
         }
@@ -43,7 +43,7 @@ namespace Nightscout.Net
         {
             if (options == null) options = new NightscoutEntryFetchOptions();
             // filter need be sir
-            NightscoutEntry[]? entries = await FetchEntriesInternal($"api/v1/entries/sgv.json?count={_options.PageSize}");
+            NightscoutEntry[]? entries = await FetchEntriesInternal($"api/v1/entries/sgv.json?count={_options.PageSize}").ConfigureAwait(false);
             if (entries != null && entries.Length > 0) {
                 OnEntriesFetched?.Invoke(null, entries);
                 return entries;
@@ -55,27 +55,27 @@ namespace Nightscout.Net
 
         public async Task<NightscoutEntry?> FetchLatestEntry()
         {
-            NightscoutEntry[]? entries = await FetchEntriesInternal("api/v1/entries/sgv.json?count=1");
+            NightscoutEntry[]? entries = await FetchEntriesInternal("api/v1/entries/sgv.json?count=1").ConfigureAwait(false);
             if (entries != null && entries.Length > 0) return entries[0];
             else throw new Exception("NOT FOUND!");
         }
 
         public async Task<NightscoutProfiles?> Profiles()
         {
-            var profiles = await NightscoutAPIRequestInternal<NightscoutProfiles[]>("api/v1/profile.json");
+            var profiles = await NightscoutAPIRequestInternal<NightscoutProfiles[]>("api/v1/profile.json").ConfigureAwait(false);
             return profiles?[0];
         }
 
         public async Task<NightscoutStatus?> GetStatus()
         {
-            if (_status == null) _status = await NightscoutAPIRequestInternal<NightscoutStatus>("api/v1/status.json");
+            if (_status == null) _status = await NightscoutAPIRequestInternal<NightscoutStatus>("api/v1/status.json").ConfigureAwait(false);
             return _status;
         }
 
         public async Task<NightscoutSettings?> GetSettings()
         {
             NightscoutSettings? settings = null;
-            var status = await GetStatus();
+            var status = await GetStatus().ConfigureAwait(false);
             if (status != null) settings = status.Settings;
             return settings;
         }
@@ -105,7 +105,7 @@ namespace Nightscout.Net
         private async Task<bool> NightscoutAPIAvailable()
         {
             // todo: add other forms of non-public auth/logging in so non-public sites work properly
-            NightscoutStatus? status = await GetStatus();
+            NightscoutStatus? status = await GetStatus().ConfigureAwait(false);
             return status != null && status.Status == "ok" && status.APIEnabled.HasValue ? status.APIEnabled.Value : false;
         }
 
