@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nightscout.Net", "Nightscout.Net\Nightscout.Net.csproj", "{9B158CA0-1B1F-4DC8-BADE-AA28AD4B4A00}"
+EndProject
+Project("{CC6ED80E-4EEE-4E80-BBBD-5C727EAE6D59}") = "Nightscout.Net.Tests", "Nightscout.Net.Tests\Nightscout.Net.Tests.csproj", "{C5D9F52D-6762-4B39-B7B0-4B3E8EE20D16}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Release-Unity|Any CPU = Release-Unity|Any CPU
+		Unity|Any CPU = Unity|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B158CA0-1B1F-4DC8-BADE-AA28AD4B4A00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B158CA0-1B1F-4DC8-BADE-AA28AD4B4A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B158CA0-1B1F-4DC8-BADE-AA28AD4B4A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B158CA0-1B1F-4DC8-BADE-AA28AD4B4A00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B158CA0-1B1F-4DC8-BADE-AA28AD4B4A00}.Release-Unity|Any CPU.ActiveCfg = Release-Unity|Any CPU
+		{9B158CA0-1B1F-4DC8-BADE-AA28AD4B4A00}.Release-Unity|Any CPU.Build.0 = Release-Unity|Any CPU
+		{9B158CA0-1B1F-4DC8-BADE-AA28AD4B4A00}.Unity|Any CPU.ActiveCfg = Release|Any CPU
+		{C5D9F52D-6762-4B39-B7B0-4B3E8EE20D16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5D9F52D-6762-4B39-B7B0-4B3E8EE20D16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5D9F52D-6762-4B39-B7B0-4B3E8EE20D16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5D9F52D-6762-4B39-B7B0-4B3E8EE20D16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5D9F52D-6762-4B39-B7B0-4B3E8EE20D16}.Release-Unity|Any CPU.ActiveCfg = Release|Any CPU
+		{C5D9F52D-6762-4B39-B7B0-4B3E8EE20D16}.Release-Unity|Any CPU.Build.0 = Release|Any CPU
+		{C5D9F52D-6762-4B39-B7B0-4B3E8EE20D16}.Unity|Any CPU.ActiveCfg = Release|Any CPU
+		{C5D9F52D-6762-4B39-B7B0-4B3E8EE20D16}.Unity|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F33D0F67-8E07-49F1-8DBA-8072E663E76D}
+	EndGlobalSection
+EndGlobal
