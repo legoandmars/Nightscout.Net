@@ -15,6 +15,8 @@ namespace Nightscout.Net
         private NightscoutAPIOptions _options;
         private readonly IHttpService _httpService;
         private NightscoutStatus? _status;
+        private NightscoutEntry? _lastEntryCached;
+
 
         public NightscoutAPI(NightscoutAPIOptions nightscoutOptions) // todo more constructors
         {
@@ -31,21 +33,47 @@ namespace Nightscout.Net
 #endif
             if (nightscoutOptions.AutomaticallyFetchSGVs)
             {
-                // this is horrible please do something else I beg you
-                var timer = new Timer(async (e) =>
-                {
-                    await FetchEntries().ConfigureAwait(false);
-                }, null, 1000, 60000);
+                AutomaticallyFetchEntry();
             }
+        }
+
+        private NightscoutEntry? _lastAutomaticEntryCached;
+        private float _sensorDelayInSeconds = 5f; // extra buffer to give some time for upload
+        private float _sensorUpdateRateInSeconds = 300f; // how often the sensor refreshes - essentially every CGM on earth has this as 5 minutes
+        private float _sensorUpdateRateWhenFailedInSeconds = 5f;
+
+        private async void AutomaticallyFetchEntry(float delayInSeconds = 0f)
+        {
+            await Task.Delay((int)(delayInSeconds * 1000));
+            var entries = await FetchEntries().ConfigureAwait(false);
+            var latestEntry = entries?[0];
+            if (latestEntry != null && _lastAutomaticEntryCached?.ID != latestEntry.ID)
+            {
+                // new entry
+                _lastAutomaticEntryCached = latestEntry;
+
+                var currentDate = DateTime.Now;
+                var currentSecondValue = (currentDate.Minute * 60) + currentDate.Second;
+                var pastSecondValue = (latestEntry.Date?.Minute * 60) + latestEntry.Date?.Second;
+
+                var elapsedSeconds = currentSecondValue - pastSecondValue;
+                float? timeToWait = _sensorUpdateRateInSeconds + _sensorDelayInSeconds - elapsedSeconds;
+
+                AutomaticallyFetchEntry(timeToWait.HasValue ? timeToWait.Value : _sensorUpdateRateWhenFailedInSeconds);
+            }
+            else AutomaticallyFetchEntry(_sensorUpdateRateWhenFailedInSeconds);
         }
 
         public async Task<NightscoutEntry[]?> FetchEntries(NightscoutEntryFetchOptions? options = null)
         {
             if (options == null) options = new NightscoutEntryFetchOptions();
-            // filter need be sir
             NightscoutEntry[]? entries = await FetchEntriesInternal($"api/v1/entries/sgv.json?count={_options.PageSize}").ConfigureAwait(false);
             if (entries != null && entries.Length > 0) {
-                OnEntriesFetched?.Invoke(null, entries);
+                if(entries[0] != null && _lastEntryCached?.ID != entries[0].ID)
+                {
+                    _lastEntryCached = entries[0];
+                    OnEntriesFetched?.Invoke(null, entries);
+                }
                 return entries;
             }
             else throw new Exception("NOT FOUND!");
